@@ -1,0 +1,25 @@
+{
+  "name": "yadageweb",
+  "description": "REST server for yadage controller but also has super-minimal frontend",
+  "main": "",
+  "keywords": [
+    "yadage"
+  ],
+  "authors": [
+    "Lukas Heinrich"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "yadage-js": "^0.0.6",
+    "requirejs": "^2.3.5",
+    "jquery": "^3.2.1"
+  }
+}
