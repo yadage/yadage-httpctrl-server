@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name = 'yadage-httpctrl-server',
-  version = '0.0.3',
+  version = '0.0.1',
   description = 'yadage http controller interfacint to persistent yadage controller',
   url = '',
   author = 'Lukas Heinrich',
@@ -11,6 +11,7 @@ setup(
   include_package_data = True,
   install_requires = [
     'click',
+    'flask',
     'psutil',
     'requests[security]>2.9',
     'pyyaml',
@@ -21,6 +22,9 @@ setup(
     'jq',
   ],
   entry_points = {
+      'console_scripts': [
+          'yadage-httpctrl-server=yadagehttpctrl.yadagehttpserver:serve',
+      ],
   },
   dependency_links = [
   ]

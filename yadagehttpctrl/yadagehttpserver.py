@@ -1,12 +1,13 @@
 import click
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, request
 
+import pkg_resources
 import yadage.utils
 import yadage.wflowstate
 import yadage.controllers
 
-
-app = Flask('yadagectrl')
+static_path = pkg_resources.resource_filename('yadagehttpctrl', 'static')
+app = Flask('yadagectrl',static_folder=static_path)
 
 @app.route('/')
 def ui():
