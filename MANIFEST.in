@@ -1,2 +1,2 @@
-recursive-include yadagehttpctrl/static *
+include yadagehttpctrl/static *
 
