@@ -7,7 +7,7 @@ import pkg_resources
 
 static_path = pkg_resources.resource_filename('yadagehttpctrl', 'static')
 app = Flask('yadagectrl',static_folder=static_path)
-
+app.debug = True
 
 def init_app(app, statetype, stateopts, backendstring):
     from yadage.wflowstate import load_model_fromstring
