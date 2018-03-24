@@ -18,7 +18,6 @@ def writemethod(method):
 
 @blueprint.route('/state')
 def state():
-    app.config['yadage_controller'].sync_backend()
     return jsonify(app.config['yadage_controller'].adageobj.json())
 
 @blueprint.route('/state/rule/<ruleid>')

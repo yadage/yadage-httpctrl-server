@@ -9,14 +9,14 @@ static_path = pkg_resources.resource_filename('yadagehttpctrl', 'static')
 app = Flask('yadagectrl',static_folder=static_path)
 app.debug = True
 
-def init_app(app, statetype, stateopts, backendstring):
+def init_app(app, statetype, stateopts, backendstring, backendopts = None):
     from yadage.wflowstate import load_model_fromstring
     from yadage.utils import setupbackend_fromstring
     from yadage.controllers import PersistentController
     model      = load_model_fromstring(statetype,stateopts)
-    backend    = setupbackend_fromstring(backendstring)
+    backend    = setupbackend_fromstring(backendstring, backendopts)
     app.config['yadage_controller'] = PersistentController(model,backend)
-
+    app.config['yadage_controller'].sync_backend()
     from yadageblueprint import blueprint
 
     app.register_blueprint(blueprint)
@@ -30,9 +30,9 @@ def init_app(app, statetype, stateopts, backendstring):
 def serve(statetype, backend, modelopt, ip ,port):
     from yadage.utils import options_from_eqdelimstring
 
-
     stateopts  = options_from_eqdelimstring(modelopt)
-    init_app(app, statetype, stateopts, backend)
+    backendopts = {}
+    init_app(app, statetype, stateopts, backend, backendopts)
 
     app.run(host=ip, port=port)
 
