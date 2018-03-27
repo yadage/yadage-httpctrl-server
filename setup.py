@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name = 'yadage-httpctrl-server',
-  version = '0.0.6',
+  version = '0.0.7',
   description = 'yadage http controller interfacint to persistent yadage controller',
   url = '',
   author = 'Lukas Heinrich',
