@@ -39,13 +39,27 @@ class YadageHTTPController():
             data = json.dumps({'ruleids': ruleids})
         )
 
+    def add_rules(self, rulespecs, dataarg, offset = '', groupname = None , dataopts = None):
+        requests.post(
+            self.server + '/ctrl/write/add_rules',
+            headers = {'Content-Type': 'application/json'},
+            data = json.dumps({
+                'rulespecs': rulespecs,
+                'offset': offset,
+                'groupname': groupname,
+                'dataarg': dataarg,
+                'dataopts': dataopts,
+            })
+        )
+
+
     def patch_rule(self, ruleid, patchspec):
         requests.post(
             self.server + '/ctrl/write/patch_rule',
             headers = {'Content-Type': 'application/json'},
             data = json.dumps({'ruleid': ruleid, 'patchspec': patchspec})
         )
-        
+
     def apply_rules(self, ruleids):
         requests.post(
             self.server + '/ctrl/write/apply_rules',

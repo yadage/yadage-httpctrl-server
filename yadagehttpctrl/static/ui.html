@@ -7,6 +7,9 @@
 
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
+    <!-- order seems important load socket before require -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+
     <script src="/static/bower_components/requirejs/require.js"></script>
     <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -37,15 +40,13 @@
         console.log('sync and draw')
         yadage.rest_controller.state().done(function(d){
           yadage.redraw_graph(d)
-        })
+      })
 
 
-        $.when(
-          yadage.rest_controller.applicable_rules(),
-          yadage.rest_controller.submittable_nodes()
-        ).done(function(applicable,submittable){
-
-
+      $.when(
+        yadage.rest_controller.applicable_rules(),
+        yadage.rest_controller.submittable_nodes()
+      ).done(function(applicable,submittable){
 
           ctrl_read_data.submittable_nodes = submittable[0]
           ctrl_read_data.applicable_rules = applicable[0]
@@ -91,8 +92,20 @@
 
       }
 
-
       $(document).ready(function(){
+
+          namespace = '/yadage';
+          var socket = io.connect('//' + document.domain + ':' + location.port + namespace);
+          socket.emit('join', {});
+          socket.on('sync', function(msg){
+            console.log('sync!')
+            require(["yadage-js"],function(yadage){
+              sync_and_draw(yadage)
+            })
+
+          })
+
+
           require(["yadage-js"],function(yadage){
 
 
