@@ -47,7 +47,8 @@ def watch_state(state):
             path = state.split(':')[-1]
             old = lastmod
             lastmod = os.path.getmtime(path)
-            if lastmod > old:
+            now     = time.time()
+            if (lastmod > old) or (now - lastmod > 10):
                 log.info('lastmod %s', lastmod)
                 log.info('send!')
                 sio.emit('sync', room='yadage', namespace='/yadage')
